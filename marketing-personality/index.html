@@ -1,1 +1,695 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Your Marketing Personality?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1477EE;
+            --primary-light: #D4E3F6;
+            --primary-dark: #052A64;
+            --accent-1: #F4EDEF;
+            --accent-2: #EDE58;
+            --accent-3: #E6DCDF;
+            --accent-4: #DECDD1;
+        }
+        
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: transparent;
+            min-height: 100vh;
+        }
+        
+        .quiz-container {
+            max-width: 800px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(5, 42, 100, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .wave-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            overflow: hidden;
+        }
+        
+        .wave-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            overflow: hidden;
+            transform: rotate(180deg);
+        }
+        
+        .option-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background-color: white;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(20, 119, 238, 0.15);
+            border-color: var(--primary-light);
+        }
+        
+        .option-card.selected {
+            border-color: var(--primary);
+            background-color: transparent;
+        }
+        
+        .result-card {
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(5, 42, 100, 0.1);
+            transition: all 0.5s ease;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: var(--accent-3);
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.5s ease;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(20, 119, 238, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .personality-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background-color: transparent;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .intro-emoji {
+            font-size: 8rem;
+            line-height: 1;
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 160px;
+            height: 160px;
+            background-color: transparent;
+            border-radius: 50%;
+            box-shadow: 0 10px 25px rgba(20, 119, 238, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .intro-emoji::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, rgba(212, 227, 246, 0.7), transparent);
+            z-index: 1;
+        }
+        
+        .resource-card {
+            border: 1px solid var(--accent-3);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(5, 42, 100, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 40px;
+            width: auto;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin-left: 8px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .wave-pattern {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .brand-heading {
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+        
+        .brand-subheading {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-6">
+    <div class="quiz-container mx-auto my-8 p-6 md:p-8">
+        <!-- Logo -->
+        <div class="logo-container flex justify-center w-full mb-4">
+            <!-- Logo SVG Placeholder - Replace with your actual logo -->
+            
+<div class="logo flex justify-center w-full" style="display: flex; justify-content: center; width: 100%; margin-bottom: 1rem;">
+    <img src="https://insights.digitalmediasolutions.com/hubfs/dms%20full%20logo%20new%20blue-1.png" alt="Digital Media Solutions logo" style="height: 48px; width: auto;" />
+</div>
 
+        </div>
+        
+        <!-- Wave Top -->
+        <div class="wave-top">
+            <svg class="wave-pattern" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
+                      fill="#E6DCDF" opacity="0.7"></path>
+            </svg>
+        </div>
+        
+        <div id="intro" class="text-center fade-in pt-16 pb-8">
+            <h1 class="text-3xl md:text-4xl brand-heading mb-3">What's Your Marketing Personality?</h1>
+            <p class="text-gray-600 mb-8">Discover your unique marketing style and strengths with our fun 5-question quiz!</p>
+            <div class="mb-10">
+                <!-- Thinking Face Emoji -->
+                <div class="intro-emoji float">
+                    🤔
+                </div>
+            </div>
+            <button id="start-btn" class="btn-primary py-3 px-10 rounded-full text-lg">Start Quiz</button>
+        </div>
+
+        <div id="quiz" class="hidden pt-16 pb-10">
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-2">
+                    <span id="question-number" class="text-sm font-medium text-primary">Question 1/5</span>
+                    <span id="question-progress" class="text-sm font-medium text-gray-500">20%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 20%"></div>
+                </div>
+            </div>
+            
+            <h2 id="question" class="text-2xl font-bold text-gray-800 mb-8">Question goes here</h2>
+            
+            <div id="options" class="grid grid-cols-1 gap-4 mb-10">
+                <!-- Options will be inserted here -->
+            </div>
+            
+            <div class="flex justify-between">
+                <button id="prev-btn" class="hidden btn-secondary px-6 py-2 rounded-full">Previous</button>
+                <button id="next-btn" class="btn-primary py-2 px-8 rounded-full ml-auto">Next</button>
+            </div>
+        </div>
+
+        <div id="results" class="hidden text-center fade-in pt-16 pb-8">
+            <h2 class="text-2xl font-semibold text-primary mb-2">Your Marketing Personality Is:</h2>
+            <h3 id="personality-title" class="text-4xl brand-heading mb-6"></h3>
+            
+            <div id="personality-icon" class="personality-icon"></div>
+            
+            <div class="result-card p-6 mb-8">
+                <!-- Wave pattern inside result card -->
+                <div class="absolute top-0 left-0 w-full h-12 opacity-30">
+                    <svg class="wave-pattern" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
+                              fill="#DECDD1" opacity="0.6"></path>
+                    </svg>
+                </div>
+                
+                <p id="personality-description" class="text-gray-700 text-lg mb-8 pt-6"></p>
+                
+                <h4 class="brand-subheading text-xl mb-3">Your Key Strengths:</h4>
+                <ul id="personality-strengths" class="text-left list-disc list-inside text-gray-700 mb-6"></ul>
+                
+                <h4 class="brand-subheading text-xl mb-3">Marketing Tactics You Excel At:</h4>
+                <ul id="personality-tactics" class="text-left list-disc list-inside text-gray-700 mb-8"></ul>
+                
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <h4 class="brand-subheading text-xl mb-4">Recommended Resources For You:</h4>
+                    <div id="personality-resources" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Resources will be inserted here -->
+                    </div>
+                </div>
+            </div>
+            
+            <button id="restart-btn" class="btn-primary py-3 px-8 rounded-full text-lg">Take Quiz Again</button>
+        </div>
+        
+        <!-- Wave Bottom -->
+        <div class="wave-bottom">
+            <svg class="wave-pattern" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
+                      fill="#F4EDEF" opacity="0.8"></path>
+            </svg>
+        </div>
+        
+        <!-- Footer with branding -->
+        <div class="footer">
+            © 2025 Digital Media Solutions®, LLC. All Rights Reserved.
+        </div>
+    </div>
+
+    <script>
+        // Update CSS variables to match brand colors
+        document.documentElement.style.setProperty('--primary', '#1477EE');
+        document.documentElement.style.setProperty('--primary-light', '#D4E3F6');
+        document.documentElement.style.setProperty('--primary-dark', '#052A64');
+        document.documentElement.style.setProperty('--accent-1', '#F4EDEF');
+        document.documentElement.style.setProperty('--accent-2', '#EDE58');
+        document.documentElement.style.setProperty('--accent-3', '#E6DCDF');
+        document.documentElement.style.setProperty('--accent-4', '#DECDD1');
+        
+        const questions = [
+            {
+                question: "When planning a marketing campaign, you prefer to:",
+                options: [
+                    "Analyze market data and create detailed plans",
+                    "Brainstorm creative concepts and unique angles",
+                    "Focus on customer pain points and solutions",
+                    "Experiment with bold, attention-grabbing approaches"
+                ]
+            },
+            {
+                question: "Which statement best describes your approach to marketing challenges?",
+                options: [
+                    "I rely on proven methods and systematic approaches",
+                    "I look for innovative ways to stand out from competitors",
+                    "I focus on building authentic connections with the audience",
+                    "I question conventional wisdom and try unexpected tactics"
+                ]
+            },
+            {
+                question: "When measuring marketing success, you value:",
+                options: [
+                    "Concrete metrics and ROI calculations",
+                    "Audience engagement and brand recognition",
+                    "Customer feedback and relationship building",
+                    "Market disruption and competitive advantage"
+                ]
+            },
+            {
+                question: "Your ideal marketing team would be described as:",
+                options: [
+                    "Methodical, data-driven, and process-oriented",
+                    "Imaginative, artistic, and trend-setting",
+                    "Empathetic, people-focused, and relationship-oriented",
+                    "Bold, risk-taking, and boundary-pushing"
+                ]
+            },
+            {
+                question: "Which marketing channel do you find most exciting?",
+                options: [
+                    "Email marketing and analytics platforms",
+                    "Visual content and social media",
+                    "Community building and customer advocacy",
+                    "Guerrilla marketing and viral campaigns"
+                ]
+            }
+        ];
+
+        const personalities = [
+            {
+                title: "The Strategist",
+                icon: "📊",
+                description: "You're the analytical powerhouse of marketing! With a methodical approach and data-driven mindset, you excel at creating comprehensive marketing plans that deliver measurable results.",
+                strengths: [
+                    "Strategic planning and execution",
+                    "Data analysis and interpretation",
+                    "Process optimization",
+                    "ROI-focused decision making"
+                ],
+                tactics: [
+                    "Email marketing campaigns",
+                    "A/B testing and optimization",
+                    "Marketing automation",
+                    "Performance tracking and analytics"
+                ],
+                resources: [
+                    {
+                        title: "A Marketer's Guide To Data Signals",
+                        description: "Unlock smarter targeting strategies by understanding the key intent signals that drive conversions.",
+                        link: "https://insights.digitalmediasolutions.com/the-marketers-guide-to-understanding-and-leveraging-data-signals-blog",
+                        icon: "📊"
+                    },
+                    {
+                        title: "Conversion-Boosting Partnership Playbook",
+                        description: "See how one brand increased conversion rates by 33.6% with the right strategic performance partnership.",
+                        link: "https://insights.digitalmediasolutions.com/dms-case-studies/increase-conversion-rates-through-strategic-partnership",
+                        icon: "🤝"
+                    }
+                ]
+            },
+            {
+                title: "The Creative Maven",
+                icon: "🎨",
+                description: "You're the imaginative force that brings marketing to life! With an eye for aesthetics and a finger on the pulse of trends, you create campaigns that captivate audiences and leave lasting impressions.",
+                strengths: [
+                    "Visual storytelling",
+                    "Brand identity development",
+                    "Trend spotting and adaptation",
+                    "Out-of-the-box thinking"
+                ],
+                tactics: [
+                    "Content creation and curation",
+                    "Social media campaigns",
+                    "Brand experience design",
+                    "Visual marketing and aesthetics"
+                ],
+                resources: [
+                    {
+                        title: "Lead Gen, Modernized",
+                        description: "Explore fresh, visually-driven approaches to lead generation that captivate and convert.",
+                        link: "https://insights.digitalmediasolutions.com/articles/modernize-lead-generation",
+                        icon: "🚀"
+                    },
+                    {
+                        title: "Creative Email Campaigns That Deliver",
+                        description: "Discover how clever content and design fueled client success through strategic email marketing.",
+                        link: "https://insights.digitalmediasolutions.com/dms-case-studies/efficient-email-strategies-drive-client-growth-success",
+                        icon: "✉️"
+                    }
+                ]
+            },
+            {
+                title: "The Relationship Builder",
+                icon: "💬",
+                description: "You're the heart-centered marketer who understands that authentic connections drive business success! You excel at creating marketing that resonates on a human level and builds lasting customer loyalty.",
+                strengths: [
+                    "Audience empathy and understanding",
+                    "Community building",
+                    "Message crafting and storytelling",
+                    "Customer journey mapping"
+                ],
+                tactics: [
+                    "Community management",
+                    "Customer advocacy programs",
+                    "Personalized marketing campaigns",
+                    "Influencer and partnership marketing"
+                ],
+                resources: [
+                    {
+                        title: "Connecting With Millennial & Gen Z Consumers",
+                        description: "Learn how personalization and tech-savvy messaging build lasting brand loyalty in younger audiences.",
+                        link: "https://insights.digitalmediasolutions.com/how-to-make-your-health-plan-the-go-to-for-millennials-and-gen-z-0",
+                        icon: "❤️"
+                    },
+                    {
+                        title: "Re-Engagement That Feels Personal",
+                        description: "Find out how one brand used web push to re-engage e-commerce shoppers and nurture real connections.",
+                        link: "https://insights.digitalmediasolutions.com/dms-case-studies/aimtell-reengage-ecommerce-consumers",
+                        icon: "🔁"
+                    }
+                ]
+            },
+            {
+                title: "The Challenger",
+                icon: "🚀",
+                description: "You're the disruptive force that pushes marketing boundaries! Unafraid to take risks and challenge conventions, you create campaigns that stand out and get people talking.",
+                strengths: [
+                    "Innovative thinking",
+                    "Competitive differentiation",
+                    "Adaptability and quick pivoting",
+                    "Attention-grabbing campaign creation"
+                ],
+                tactics: [
+                    "Guerrilla marketing",
+                    "Viral campaign development",
+                    "Disruptive market positioning",
+                    "Experimental marketing approaches"
+                ],
+                resources: [
+                    {
+                        title: "Lead Gen In The Age Of AI",
+                        description: "Get bold ideas for standing out and scaling success with cutting-edge lead generation strategies.",
+                        link: "https://insights.digitalmediasolutions.com/best-practices-for-lead-generation-in-the-era-of-ai",
+                        icon: "🤖"
+                    },
+                    {
+                        title: "Scaling Inbound Calls, Fast",
+                        description: "See how one Medicare brand pushed limits to increase call volume with aggressive, data-backed strategies.",
+                        link: "https://insights.digitalmediasolutions.com/dms-case-studies/scaling-inbound-call-volume-during-medicare",
+                        icon: "📞"
+                    }
+                ]
+            }
+        ];
+
+        // Quiz state
+        let currentQuestion = 0;
+        let answers = [];
+
+        // DOM elements
+        const introSection = document.getElementById('intro');
+        const quizSection = document.getElementById('quiz');
+        const resultsSection = document.getElementById('results');
+        const startBtn = document.getElementById('start-btn');
+        const questionNumber = document.getElementById('question-number');
+        const questionProgress = document.getElementById('question-progress');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const progressBar = document.querySelector('.progress');
+
+        // Start quiz
+        startBtn.addEventListener('click', () => {
+            introSection.classList.add('hidden');
+            quizSection.classList.remove('hidden');
+            loadQuestion();
+        });
+
+        // Load question
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            questionElement.textContent = question.question;
+            questionNumber.textContent = `Question ${currentQuestion + 1}/5`;
+            questionProgress.textContent = `${(currentQuestion + 1) * 20}%`;
+            progressBar.style.width = `${(currentQuestion + 1) * 20}%`;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const isSelected = answers[currentQuestion] === index;
+                const optionCard = document.createElement('div');
+                optionCard.className = `option-card p-5 rounded-lg border ${isSelected ? 'selected' : 'border-gray-200'} hover:border-primary-light`;
+                optionCard.dataset.index = index;
+                optionCard.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-6 h-6 rounded-full border-2 ${isSelected ? 'border-primary bg-primary' : 'border-gray-300'} mr-3 flex-shrink-0"></div>
+                        <span class="text-gray-800">${option}</span>
+                    </div>
+                `;
+                optionCard.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionCard);
+            });
+            
+            // Update button states
+            prevBtn.classList.toggle('hidden', currentQuestion === 0);
+            nextBtn.textContent = currentQuestion === questions.length - 1 ? 'See Results' : 'Next';
+        }
+
+        // Select option
+        function selectOption(index) {
+            answers[currentQuestion] = index;
+            document.querySelectorAll('.option-card').forEach((card, i) => {
+                card.classList.toggle('selected', i === index);
+                const radioCircle = card.querySelector('.w-6');
+                if (i === index) {
+                    radioCircle.classList.remove('border-gray-300');
+                    radioCircle.classList.add('border-primary', 'bg-primary');
+                } else {
+                    radioCircle.classList.add('border-gray-300');
+                    radioCircle.classList.remove('border-primary', 'bg-primary');
+                }
+            });
+        }
+
+        // Navigation
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (answers[currentQuestion] === undefined) {
+                // Highlight that an option needs to be selected
+                optionsContainer.classList.add('animate-pulse');
+                setTimeout(() => {
+                    optionsContainer.classList.remove('animate-pulse');
+                }, 1000);
+                return;
+            }
+            
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        // Calculate results and show
+        function showResults() {
+            quizSection.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+            
+            // Count personality types based on answers
+            const counts = [0, 0, 0, 0]; // Strategist, Creative, Relationship, Challenger
+            answers.forEach(answer => {
+                counts[answer]++;
+            });
+            
+            // Find the dominant personality (highest count)
+            let maxCount = 0;
+            let dominantPersonality = 0;
+            counts.forEach((count, index) => {
+                if (count > maxCount) {
+                    maxCount = count;
+                    dominantPersonality = index;
+                }
+            });
+            
+            // Display personality results
+            const personality = personalities[dominantPersonality];
+            document.getElementById('personality-title').textContent = personality.title;
+            document.getElementById('personality-icon').textContent = personality.icon;
+            document.getElementById('personality-description').textContent = personality.description;
+            
+            const strengthsList = document.getElementById('personality-strengths');
+            strengthsList.innerHTML = '';
+            personality.strengths.forEach(strength => {
+                const li = document.createElement('li');
+                li.textContent = strength;
+                strengthsList.appendChild(li);
+            });
+            
+            const tacticsList = document.getElementById('personality-tactics');
+            tacticsList.innerHTML = '';
+            personality.tactics.forEach(tactic => {
+                const li = document.createElement('li');
+                li.textContent = tactic;
+                tacticsList.appendChild(li);
+            });
+            
+            // Display recommended resources
+            const resourcesContainer = document.getElementById('personality-resources');
+            resourcesContainer.innerHTML = '';
+            personality.resources.forEach(resource => {
+                const resourceCard = document.createElement('a');
+                resourceCard.href = resource.link;
+                resourceCard.target = "_blank"; // Open in new tab
+                resourceCard.className = 'resource-card p-4 block text-left';
+                resourceCard.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="text-3xl mr-3">${resource.icon}</div>
+                        <div>
+                            <h5 class="font-semibold text-primary mb-1">${resource.title}</h5>
+                            <p class="text-sm text-gray-600">${resource.description}</p>
+                        </div>
+                    </div>
+                `;
+                resourcesContainer.appendChild(resourceCard);
+            });
+        }
+
+        // Restart quiz
+        restartBtn.addEventListener('click', () => {
+            currentQuestion = 0;
+            answers = [];
+            resultsSection.classList.add('hidden');
+            introSection.classList.remove('hidden');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'930dfa1d07b8d678',t:'MTc0NDc0NjY3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
