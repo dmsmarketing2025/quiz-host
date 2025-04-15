@@ -1,11 +1,11 @@
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What's Your Marketing Personality?</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>What's Your Marketing Personality?</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
         :root {
             --primary: #1477EE;
             --primary-light: #D4E3F6;
@@ -233,112 +233,122 @@
             color: var(--primary-dark);
             opacity: 0.8;
         }
+        
+        /* Radio button styling */
+        .radio-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        
+        .radio-dot {
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background-color: var(--primary);
+            transition: all 0.2s ease;
+        }
+        
+        .option-card.selected .radio-circle {
+            border-color: var(--primary);
+        }
+        
+        .option-card.selected .radio-dot {
+            width: 12px;
+            height: 12px;
+        }
     </style>
 </head>
 <body class="p-4 md:p-6">
-    <div class="quiz-container mx-auto my-8 p-6 md:p-8">
-        <!-- Logo -->
-        <div class="logo-container flex justify-center w-full mb-4">
-            <!-- Logo SVG Placeholder - Replace with your actual logo -->
-            
-<div class="logo flex justify-center w-full" style="display: flex; justify-content: center; width: 100%; margin-bottom: 1rem;">
-    <img src="https://insights.digitalmediasolutions.com/hubfs/dms%20full%20logo%20new%20blue-1.png" alt="Digital Media Solutions logo" style="height: 48px; width: auto;" />
+<div class="quiz-container mx-auto my-8 p-6 md:p-8">
+<!-- Logo -->
+
+<div class="logo-container" style="display: flex; justify-content: center; width: 100%; margin-bottom: 1rem;">
+<div class="logo">
+<img alt="Digital Media Solutions logo" src="https://insights.digitalmediasolutions.com/hubfs/dms%20full%20logo%20new%20blue-1.png" style="height: 48px; width: auto;"/>
+</div>
 </div>
 
-        </div>
-        
-        <!-- Wave Top -->
-        <div class="wave-top">
-            <svg class="wave-pattern" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
-                      fill="#E6DCDF" opacity="0.7"></path>
-            </svg>
-        </div>
-        
-        <div id="intro" class="text-center fade-in pt-16 pb-8">
-            <h1 class="text-3xl md:text-4xl brand-heading mb-3">What's Your Marketing Personality?</h1>
-            <p class="text-gray-600 mb-8">Discover your unique marketing style and strengths with our fun 5-question quiz!</p>
-            <div class="mb-10">
-                <!-- Thinking Face Emoji -->
-                <div class="intro-emoji float">
+<!-- Wave Top -->
+<div class="wave-top">
+<svg class="wave-pattern" preserveaspectratio="none" viewbox="0 0 1200 120">
+<path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="#E6DCDF" opacity="0.7"></path>
+</svg>
+</div>
+<div class="text-center fade-in pt-16 pb-8" id="intro">
+<h1 class="text-3xl md:text-4xl brand-heading mb-3">What's Your Marketing Personality?</h1>
+<p class="text-gray-600 mb-8">Discover your unique marketing style and strengths with our fun 5-question quiz!</p>
+<div class="mb-10">
+<!-- Thinking Face Emoji -->
+<div class="intro-emoji float">
                     🤔
                 </div>
-            </div>
-            <button id="start-btn" class="btn-primary py-3 px-10 rounded-full text-lg">Start Quiz</button>
-        </div>
-
-        <div id="quiz" class="hidden pt-16 pb-10">
-            <div class="mb-8">
-                <div class="flex justify-between items-center mb-2">
-                    <span id="question-number" class="text-sm font-medium text-primary">Question 1/5</span>
-                    <span id="question-progress" class="text-sm font-medium text-gray-500">20%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 20%"></div>
-                </div>
-            </div>
-            
-            <h2 id="question" class="text-2xl font-bold text-gray-800 mb-8">Question goes here</h2>
-            
-            <div id="options" class="grid grid-cols-1 gap-4 mb-10">
-                <!-- Options will be inserted here -->
-            </div>
-            
-            <div class="flex justify-between">
-                <button id="prev-btn" class="hidden btn-secondary px-6 py-2 rounded-full">Previous</button>
-                <button id="next-btn" class="btn-primary py-2 px-8 rounded-full ml-auto">Next</button>
-            </div>
-        </div>
-
-        <div id="results" class="hidden text-center fade-in pt-16 pb-8">
-            <h2 class="text-2xl font-semibold text-primary mb-2">Your Marketing Personality Is:</h2>
-            <h3 id="personality-title" class="text-4xl brand-heading mb-6"></h3>
-            
-            <div id="personality-icon" class="personality-icon"></div>
-            
-            <div class="result-card p-6 mb-8">
-                <!-- Wave pattern inside result card -->
-                <div class="absolute top-0 left-0 w-full h-12 opacity-30">
-                    <svg class="wave-pattern" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
-                              fill="#DECDD1" opacity="0.6"></path>
-                    </svg>
-                </div>
-                
-                <p id="personality-description" class="text-gray-700 text-lg mb-8 pt-6"></p>
-                
-                <h4 class="brand-subheading text-xl mb-3">Your Key Strengths:</h4>
-                <ul id="personality-strengths" class="text-left list-disc list-inside text-gray-700 mb-6"></ul>
-                
-                <h4 class="brand-subheading text-xl mb-3">Marketing Tactics You Excel At:</h4>
-                <ul id="personality-tactics" class="text-left list-disc list-inside text-gray-700 mb-8"></ul>
-                
-                <div class="mt-8 pt-6 border-t border-gray-200">
-                    <h4 class="brand-subheading text-xl mb-4">Recommended Resources For You:</h4>
-                    <div id="personality-resources" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Resources will be inserted here -->
-                    </div>
-                </div>
-            </div>
-            
-            <button id="restart-btn" class="btn-primary py-3 px-8 rounded-full text-lg">Take Quiz Again</button>
-        </div>
-        
-        <!-- Wave Bottom -->
-        <div class="wave-bottom">
-            <svg class="wave-pattern" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
-                      fill="#F4EDEF" opacity="0.8"></path>
-            </svg>
-        </div>
-        
-        <!-- Footer with branding -->
-        <div class="footer">
+</div>
+<button class="btn-primary py-3 px-10 rounded-full text-lg" id="start-btn">Start Quiz</button>
+</div>
+<div class="hidden pt-16 pb-10" id="quiz">
+<div class="mb-8">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-medium text-primary" id="question-number">Question 1/5</span>
+<span class="text-sm font-medium text-gray-500" id="question-progress">20%</span>
+</div>
+<div class="progress-bar">
+<div class="progress" style="width: 20%"></div>
+</div>
+</div>
+<h2 class="text-2xl font-bold text-gray-800 mb-8" id="question">Question goes here</h2>
+<div class="grid grid-cols-1 gap-4 mb-10" id="options">
+<!-- Options will be inserted here -->
+</div>
+<div class="flex justify-between">
+<button class="hidden btn-secondary px-6 py-2 rounded-full" id="prev-btn">Previous</button>
+<button class="btn-primary py-2 px-8 rounded-full ml-auto" id="next-btn">Next</button>
+</div>
+</div>
+<div class="hidden text-center fade-in pt-16 pb-8" id="results">
+<h2 class="text-2xl font-semibold text-primary mb-2">Your Marketing Personality Is:</h2>
+<h3 class="text-4xl brand-heading mb-6" id="personality-title"></h3>
+<div class="personality-icon" id="personality-icon"></div>
+<div class="result-card p-6 mb-8">
+<!-- Wave pattern inside result card -->
+<div class="absolute top-0 left-0 w-full h-12 opacity-30">
+<svg class="wave-pattern" preserveaspectratio="none" viewbox="0 0 1200 120">
+<path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="#DECDD1" opacity="0.6"></path>
+</svg>
+</div>
+<p class="text-gray-700 text-lg mb-8 pt-6" id="personality-description"></p>
+<h4 class="brand-subheading text-xl mb-3">Your Key Strengths:</h4>
+<ul class="text-left list-disc list-inside text-gray-700 mb-6" id="personality-strengths"></ul>
+<h4 class="brand-subheading text-xl mb-3">Marketing Tactics You Excel At:</h4>
+<ul class="text-left list-disc list-inside text-gray-700 mb-8" id="personality-tactics"></ul>
+<div class="mt-8 pt-6 border-t border-gray-200">
+<h4 class="brand-subheading text-xl mb-4">Recommended Resources For You:</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="personality-resources">
+<!-- Resources will be inserted here -->
+</div>
+</div>
+</div>
+<button class="btn-primary py-3 px-8 rounded-full text-lg" id="restart-btn">Take Quiz Again</button>
+</div>
+<!-- Wave Bottom -->
+<div class="wave-bottom">
+<svg class="wave-pattern" preserveaspectratio="none" viewbox="0 0 1200 120">
+<path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="#F4EDEF" opacity="0.8"></path>
+</svg>
+</div>
+<!-- Footer with branding -->
+<div class="footer">
             © 2025 Digital Media Solutions®, LLC. All Rights Reserved.
         </div>
-    </div>
-
-    <script>
+</div>
+<script>
         // Update CSS variables to match brand colors
         document.documentElement.style.setProperty('--primary', '#1477EE');
         document.documentElement.style.setProperty('--primary-light', '#D4E3F6');
@@ -455,7 +465,7 @@
                         title: "Creative Email Campaigns That Deliver",
                         description: "Discover how clever content and design fueled client success through strategic email marketing.",
                         link: "https://insights.digitalmediasolutions.com/dms-case-studies/efficient-email-strategies-drive-client-growth-success",
-                        icon: "✉️"
+                        icon: "📩"
                     }
                 ]
             },
@@ -564,13 +574,21 @@
                 optionCard.dataset.index = index;
                 optionCard.innerHTML = `
                     <div class="flex items-center">
-                        <div class="w-6 h-6 rounded-full border-2 ${isSelected ? 'border-primary bg-primary' : 'border-gray-300'} mr-3 flex-shrink-0"></div>
+                        <div class="radio-circle">
+                            <div class="radio-dot"></div>
+                        </div>
                         <span class="text-gray-800">${option}</span>
                     </div>
                 `;
                 optionCard.addEventListener('click', () => selectOption(index));
                 optionsContainer.appendChild(optionCard);
             });
+            
+            // Update selected state for radio buttons
+            if (answers[currentQuestion] !== undefined) {
+                const selectedOption = optionsContainer.children[answers[currentQuestion]];
+                selectedOption.classList.add('selected');
+            }
             
             // Update button states
             prevBtn.classList.toggle('hidden', currentQuestion === 0);
@@ -582,14 +600,6 @@
             answers[currentQuestion] = index;
             document.querySelectorAll('.option-card').forEach((card, i) => {
                 card.classList.toggle('selected', i === index);
-                const radioCircle = card.querySelector('.w-6');
-                if (i === index) {
-                    radioCircle.classList.remove('border-gray-300');
-                    radioCircle.classList.add('border-primary', 'bg-primary');
-                } else {
-                    radioCircle.classList.add('border-gray-300');
-                    radioCircle.classList.remove('border-primary', 'bg-primary');
-                }
             });
         }
 
@@ -691,5 +701,5 @@
             introSection.classList.remove('hidden');
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'930dfa1d07b8d678',t:'MTc0NDc0NjY3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'930e740b21cf8227',t:'MTc0NDc1MTY3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
