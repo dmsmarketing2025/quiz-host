@@ -6,8 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>What Type of Marketer Are You?</title>
   <style>
+    html, body {
+      background-color: transparent !important;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', Arial, sans-serif; }
-    body { background: #f8f9fc; }
+    body { background: transparent; }
     .quiz-wrapper {
       max-width: 800px; margin: 40px auto; background: #fff;
       border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden;
@@ -22,66 +25,34 @@
     .start-screen, .results-screen { text-align: center; padding: 40px 20px; }
     .progress-container { margin-bottom: 24px; }
     .progress-info { display: flex; justify-content: space-between; font-size: 14px; color: #555; margin-bottom: 6px; }
-    .progress-bar {
-      height: 8px; background-color: #e5e7eb;
-      border-radius: 4px; overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%; background-color: #2563eb;
-      transition: width 0.3s ease;
-    }
-    .question-text {
-      font-size: 20px; font-weight: 600;
-      margin-bottom: 24px; color: #222;
-    }
+    .progress-bar { height: 8px; background-color: #e5e7eb; border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; background-color: #2563eb; transition: width 0.3s ease; }
+    .question-text { font-size: 20px; font-weight: 600; margin-bottom: 24px; color: #222; }
     .option-card {
-      background-color: #f9fafb; border: 2px solid #e5e7eb;
-      border-radius: 8px; padding: 16px 20px;
-      margin-bottom: 12px; cursor: pointer;
-      transition: all 0.2s ease;
+      background-color: #f9fafb; border: 2px solid #e5e7eb; border-radius: 8px; padding: 16px 20px;
+      margin-bottom: 12px; cursor: pointer; transition: all 0.2s ease;
     }
-    .option-card:hover {
-      border-color: #2563eb; background-color: #eef2ff;
-    }
-    .option-card.selected {
-      border-color: #2563eb; background-color: #eef2ff;
-    }
+    .option-card:hover { border-color: #2563eb; background-color: #eef2ff; }
+    .option-card.selected { border-color: #2563eb; background-color: #eef2ff; }
     .option-content { display: flex; align-items: center; }
     .radio-circle {
-      width: 20px; height: 20px;
-      border: 2px solid #ccc; border-radius: 50%;
-      margin-right: 12px; display: flex;
-      align-items: center; justify-content: center;
+      width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 50%;
+      margin-right: 12px; display: flex; align-items: center; justify-content: center;
     }
-    .radio-dot {
-      width: 8px; height: 8px;
-      background-color: white;
-      border-radius: 50%; display: none;
-    }
-    .selected .radio-circle {
-      background-color: #2563eb; border-color: #2563eb;
-    }
+    .radio-dot { width: 8px; height: 8px; background-color: white; border-radius: 50%; display: none; }
+    .selected .radio-circle { background-color: #2563eb; border-color: #2563eb; }
     .selected .radio-dot { display: block; }
     .navigation { display: flex; justify-content: space-between; }
     .btn {
-      padding: 12px 24px; font-size: 16px;
-      border-radius: 24px; font-weight: 600;
-      cursor: pointer; border: none;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      padding: 12px 24px; font-size: 16px; border-radius: 24px; font-weight: 600;
+      cursor: pointer; border: none; transition: background-color 0.3s ease, color 0.3s ease;
     }
     .btn-primary { background-color: #2563eb; color: white; }
     .btn-primary:hover { background-color: #1e40af; }
-    .btn-outline {
-      background-color: transparent; border: 2px solid #2563eb; color: #2563eb;
-    }
+    .btn-outline { background-color: transparent; border: 2px solid #2563eb; color: #2563eb; }
     .btn-outline:hover { background-color: #eef2ff; }
-
-    /* Results */
     .results-screen h2 { font-size: 22px; margin-bottom: 10px; }
-    .result-character {
-      font-size: 28px; font-weight: 700;
-      color: #2563eb; margin-bottom: 25px;
-    }
+    .result-character { font-size: 28px; font-weight: 700; color: #2563eb; margin-bottom: 25px; }
     .result-card {
       background-color: white; border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -92,16 +63,10 @@
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 20px; font-size: 50px; color: white;
     }
-    .result-subtitle {
-      font-size: 20px; font-weight: 700; margin-bottom: 10px;
-      color: #333;
-    }
-    .result-description {
-      color: #555; margin-bottom: 20px;
-    }
+    .result-subtitle { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #333; }
+    .result-description { color: #555; margin-bottom: 20px; }
     .strengths-section {
-      border-top: 1px solid #e5e7eb;
-      padding-top: 15px; margin-top: 15px; text-align: left;
+      border-top: 1px solid #e5e7eb; padding-top: 15px; margin-top: 15px; text-align: left;
     }
     .strengths-title { font-weight: 600; margin-bottom: 10px; color: #333; }
     .strengths-list { padding-left: 20px; color: #555; }
@@ -115,161 +80,13 @@
       <p>Digital Media Solutions Quiz</p>
     </div>
     <div class="quiz-content">
-      <div id="start-screen" class="start-screen">
+      <div class="start-screen">
         <div style="font-size: 48px; margin-bottom: 20px;">📊</div>
         <h2 style="font-size: 22px; margin-bottom: 15px; color: #333;">Discover Your Marketing Personality</h2>
         <p style="color: #666; margin-bottom: 25px;">Answer 5 quick questions to find out which Friends character matches your marketing style!</p>
-        <button id="start-btn" class="btn btn-primary">Start Quiz</button>
-      </div>
-      <div id="question-container" class="question-container" style="display:none;">
-        <div class="progress-container">
-          <div class="progress-info">
-            <span id="question-number">Question 1/5</span>
-            <span id="question-progress">20%</span>
-          </div>
-          <div class="progress-bar">
-            <div id="progress-fill" class="progress-fill" style="width: 20%;"></div>
-          </div>
-        </div>
-        <h2 id="question-text" class="question-text">Question text goes here</h2>
-        <div id="options-container" class="options-container"></div>
-        <div class="navigation">
-          <button id="prev-btn" class="btn btn-outline">Previous</button>
-          <button id="next-btn" class="btn btn-primary" disabled>Next</button>
-        </div>
-      </div>
-      <div id="results-screen" class="results-screen" style="display:none;">
-        <h2>Your Marketing Personality Is:</h2>
-        <div id="result-character" class="result-character"></div>
-        <div class="result-card">
-          <div id="character-icon" class="character-icon"></div>
-          <h3 id="result-title" class="result-subtitle"></h3>
-          <p id="result-description" class="result-description"></p>
-          <div class="strengths-section">
-            <h4 class="strengths-title">Marketing Strengths:</h4>
-            <ul id="result-strengths" class="strengths-list"></ul>
-          </div>
-        </div>
-        <button id="restart-btn" class="btn btn-outline">Take Quiz Again</button>
+        <button class="btn btn-primary" onclick="startQuiz()">Start Quiz</button>
       </div>
     </div>
   </div>
-  <script>
-    const quizData = {
-      questions: [
-        { question: "What's your approach to marketing campaigns?", options: ["Meticulously planned with detailed analytics", "Creative and outside-the-box thinking", "Relationship-focused with personal connections", "Optimistic with a focus on positive messaging", "Sarcastic and witty to stand out from competitors", "Straightforward and practical solutions"] },
-        { question: "How do you handle a marketing crisis?", options: ["Create a detailed plan with contingencies", "Use humor to diffuse the situation", "Empathize with customers", "Stay positive", "Point out absurdity with wit", "Take immediate action"] },
-        { question: "What's your content creation style?", options: ["Thoroughly researched", "Quirky and memorable", "Warm and inviting", "Upbeat and enthusiastic", "Clever with subtle humor", "No-nonsense and direct"] },
-        { question: "How do you measure marketing success?", options: ["Spreadsheets and metrics", "Brand recognition", "Customer satisfaction", "Positive feedback", "Social engagement", "ROI"] },
-        { question: "What's your team collaboration style?", options: ["Organized and structured", "Wild brainstorms", "Supportive and inclusive", "Celebrate wins", "Challenging and fun", "Efficient discussions"] }
-      ],
-      results: [
-        { character: "Monica", title: "The Perfectionist Marketer", description: "You're detail-oriented and meticulous in your marketing approach. Nothing gets past you, and your campaigns are always perfectly executed.", strengths: ["Exceptional organization and planning", "Attention to detail that catches potential issues", "Consistent follow-through on every campaign", "Data-driven decision making"], color: "#9C27B0", emoji: "👩‍🍳" },
-        { character: "Phoebe", title: "The Creative Maverick", description: "Your unconventional approach to marketing brings fresh perspectives that others miss. You're not afraid to try something completely different.", strengths: ["Out-of-the-box thinking", "Authentic brand voice", "Ability to connect with niche audiences", "Memorable campaigns"], color: "#8BC34A", emoji: "🎸" },
-        { character: "Joey", title: "The Relationship Builder", description: "You excel at making genuine connections with your audience. Your charismatic approach makes customers feel like they're part of your brand family.", strengths: ["Natural charm", "Excellent social media engagement", "Approachability", "Personalized experiences"], color: "#FF9800", emoji: "🍕" },
-        { character: "Rachel", title: "The Trendsetting Optimist", description: "You have your finger on the pulse of what's next in marketing. Your campaigns are stylish, forward-thinking, and always positive.", strengths: ["Great aesthetic", "Trend adaptation", "Aspirational messaging", "Positive storytelling"], color: "#E91E63", emoji: "👗" },
-        { character: "Chandler", title: "The Witty Strategist", description: "Your marketing stands out with clever humor and memorable messaging. You use sarcasm and wit to cut through the noise and connect with audiences.", strengths: ["Clever copy", "Memorability", "Humor in branding", "Unique tone of voice"], color: "#2196F3", emoji: "💼" },
-        { character: "Ross", title: "The Analytical Expert", description: "You bring depth and expertise to your marketing approach. Your campaigns are built on solid research and industry knowledge.", strengths: ["Expert-level research", "Insightful strategy", "Data interpretation", "Thorough testing"], color: "#795548", emoji: "🦖" }
-      ]
-    };
-
-    let currentQuestion = 0;
-    let answers = [];
-
-    const startScreen = document.getElementById('start-screen');
-    const questionContainer = document.getElementById('question-container');
-    const resultsScreen = document.getElementById('results-screen');
-    const questionNumber = document.getElementById('question-number');
-    const questionProgress = document.getElementById('question-progress');
-    const progressFill = document.getElementById('progress-fill');
-    const questionText = document.getElementById('question-text');
-    const optionsContainer = document.getElementById('options-container');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const startBtn = document.getElementById('start-btn');
-    const restartBtn = document.getElementById('restart-btn');
-
-    startBtn.addEventListener('click', () => {
-      startScreen.style.display = 'none';
-      questionContainer.style.display = 'block';
-      answers = new Array(quizData.questions.length).fill(null);
-      currentQuestion = 0;
-      showQuestion(currentQuestion);
-    });
-
-    function showQuestion(index) {
-      const question = quizData.questions[index];
-      questionText.textContent = question.question;
-      questionNumber.textContent = `Question ${index + 1}/${quizData.questions.length}`;
-      const progress = ((index + 1) / quizData.questions.length) * 100;
-      progressFill.style.width = `${progress}%`;
-      questionProgress.textContent = `${Math.round(progress)}%`;
-
-      optionsContainer.innerHTML = '';
-      question.options.forEach((option, i) => {
-        const card = document.createElement('div');
-        card.className = `option-card ${answers[index] === i ? 'selected' : ''}`;
-        card.innerHTML = `<div class="option-content"><div class="radio-circle"><div class="radio-dot"></div></div><span>${option}</span></div>`;
-        card.addEventListener('click', () => selectOption(i));
-        optionsContainer.appendChild(card);
-      });
-
-      prevBtn.disabled = index === 0;
-      nextBtn.disabled = answers[index] === null;
-      nextBtn.textContent = index === quizData.questions.length - 1 ? "See Results" : "Next";
-    }
-
-    function selectOption(i) {
-      answers[currentQuestion] = i;
-      showQuestion(currentQuestion);
-    }
-
-    nextBtn.addEventListener('click', () => {
-      if (currentQuestion < quizData.questions.length - 1) {
-        currentQuestion++;
-        showQuestion(currentQuestion);
-      } else {
-        showResults();
-      }
-    });
-
-    prevBtn.addEventListener('click', () => {
-      if (currentQuestion > 0) {
-        currentQuestion--;
-        showQuestion(currentQuestion);
-      }
-    });
-
-    function showResults() {
-      questionContainer.style.display = 'none';
-      resultsScreen.style.display = 'block';
-
-      const count = new Array(6).fill(0);
-      answers.forEach(i => { if (i !== null) count[i]++; });
-      const topIndex = count.indexOf(Math.max(...count));
-      const result = quizData.results[topIndex];
-
-      document.getElementById('result-character').textContent = result.character;
-      document.getElementById('result-title').textContent = result.title;
-      document.getElementById('result-description').textContent = result.description;
-
-      const icon = document.getElementById('character-icon');
-      icon.textContent = result.emoji;
-      icon.style.backgroundColor = result.color;
-
-      const strengthsList = document.getElementById('result-strengths');
-      strengthsList.innerHTML = '';
-      result.strengths.forEach(s => {
-        const li = document.createElement('li');
-        li.textContent = s;
-        strengthsList.appendChild(li);
-      });
-    }
-
-    restartBtn.addEventListener('click', () => {
-      resultsScreen.style.display = 'none';
-      startScreen.style.display = 'block';
-    });
-  </script>
 </body>
 </html>
