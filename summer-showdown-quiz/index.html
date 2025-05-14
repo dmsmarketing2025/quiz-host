@@ -1,1 +1,366 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Which DMS Summer Showdown Team Should You Join?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: transparent;
+            min-height: 100vh;
+            color: #052A64;
+        }
+        .quiz-container {
+            max-width: 800px;
+            background-color: #D4E3F6;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .option-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background-color: white;
+        }
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .option-card.selected {
+            border-color: #1477EE;
+            background-color: rgba(20, 119, 238, 0.1);
+        }
+        .progress-bar {
+            height: 10px;
+            border-radius: 5px;
+            background-color: white;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background: #1477EE;
+            transition: width 0.5s ease;
+        }
+        .result-container {
+            display: none;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .btn-primary {
+            background-color: #1477EE;
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+        }
+        .btn-primary:hover:not(:disabled) {
+            background-color: #0e63c7;
+            transform: scale(1.05);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background-color: #1477EE;
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+            font-size: 0.9rem;
+        }
+        .btn-secondary:hover {
+            background-color: #0e63c7;
+            transform: scale(1.05);
+        }
+        .logo-placeholder {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .activities-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            text-align: left;
+        }
+        @media (max-width: 640px) {
+            .activities-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+<style>
+.option-card.selected .indicator {
+    background-color: #1477EE;
+    border-color: #1477EE;
+}
+</style>
+
+</head>
+<body class="p-4 flex items-center justify-center">
+    <div class="quiz-container p-8 my-8 w-full">
+        <div class="logo-placeholder">
+            <img src="dms-logo.png" onerror="this.style.display='none'" alt="Digital Media Solutions Logo" class="h-20 mx-auto">
+        </div>
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Which DMS Summer Showdown Team Should You Join?</h1>
+            <p class="text-lg">Answer these questions to discover if you're Team Body or Team Mind!</p>
+        </div>
+        <div class="progress-bar mb-8">
+            <div class="progress" style="width: 0%"></div>
+        </div>
+        <div id="welcome-container" class="text-center fade-in">
+            <div class="flex justify-center space-x-8 mb-8">
+                <div class="text-center">
+                    <div class="mb-3">
+                        <img src="team-body.png" alt="Team Body" class="w-32 h-32 object-contain mx-auto">
+                    </div>
+                    <p class="font-bold">Team Body</p>
+                </div>
+                <div class="text-center">
+                    <div class="mb-3">
+                        <img src="team-mind.png" alt="Team Mind" class="w-32 h-32 object-contain mx-auto">
+                    </div>
+                    <p class="font-bold">Team Mind</p>
+                </div>
+            </div>
+            <button id="start-btn" class="btn-primary">Let's Get Started</button>
+        </div>
+        <div id="question-container" class="fade-in hidden"></div>
+        <div id="result-container" class="result-container text-center fade-in">
+            <div id="team-body-result" class="hidden">
+                <div class="mx-auto mb-6">
+                    <img src="team-body.png" alt="Team Body" class="w-40 h-40 object-contain mx-auto">
+                </div>
+                <h2 class="text-3xl font-bold mb-4">You're Team Body!</h2>
+                <p class="text-lg mb-6">You thrive on physical challenges and love to stay active! Team Body is perfect for you. Earn points through walking, running, exercise classes and other physical activities.</p>
+                <div class="bg-white p-4 rounded-lg mb-6">
+                    <h3 class="font-bold mb-3">Team Body Activities:</h3>
+                    <div class="activities-list">
+                        <ul class="list-disc pl-5">
+                            <li>Walking or hiking</li>
+                            <li>Running or jogging</li>
+                            <li>Biking or taking a spin class</li>
+                            <li>Attending a fitness class</li>
+                            <li>Strength training</li>
+                        </ul>
+                        <ul class="list-disc pl-5">
+                            <li>Swimming</li>
+                            <li>Stretching or yoga</li>
+                            <li>Playing a group sport</li>
+                            <li>Trying a new fitness app or video</li>
+                            <li>Yard work or house cleaning</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 mb-6">
+                    <h3 class="font-bold mb-4 text-2xl">Ready To Join The Challenge?</h3>
+                    <a href="https://forms.gle/9fUNh71Que1uA7pT7" target="_blank" class="btn-primary inline-block" id="register-link">Register Here</a>
+                </div>
+            </div>
+            <div id="team-mind-result" class="hidden">
+                <div class="mx-auto mb-6">
+                    <img src="team-mind.png" alt="Team Mind" class="w-40 h-40 object-contain mx-auto">
+                </div>
+                <h2 class="text-3xl font-bold mb-4">You're Team Mind!</h2>
+                <p class="text-lg mb-6">You value mental wellness and personal growth! Team Mind is your perfect match. Earn points through meditation, learning new skills, watching documentaries and other mindful activities.</p>
+                <div class="bg-white p-4 rounded-lg mb-6">
+                    <h3 class="font-bold mb-3">Team Mind Activities:</h3>
+                    <div class="activities-list">
+                        <ul class="list-disc pl-5">
+                            <li>Meditating</li>
+                            <li>Reading a book</li>
+                            <li>Watching a documentary</li>
+                            <li>Journaling</li>
+                            <li>Creative hobbies</li>
+                        </ul>
+                        <ul class="list-disc pl-5">
+                            <li>Puzzles or word games</li>
+                            <li>Online classes</li>
+                            <li>Cooking or baking</li>
+                            <li>Spending time with others</li>
+                            <li>Mindful walks</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 mb-6">
+                    <h3 class="font-bold mb-4 text-2xl">Ready To Join The Challenge?</h3>
+                    <a href="https://forms.gle/9fUNh71Que1uA7pT7" target="_blank" class="btn-primary inline-block" id="register-link-mind">Register Here</a>
+                </div>
+            </div>
+            <button id="restart-btn" class="btn-secondary mt-4">Take Quiz Again</button>
+        </div>
+        <div class="mt-8 text-center hidden" id="navigation">
+            <button id="next-btn" class="btn-primary" disabled>Next Question</button>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            {
+                question: "How do you prefer to spend your free time?",
+                options: [
+                    { text: "Getting outside and being active", type: "body" },
+                    { text: "Learning something new or relaxing with a book", type: "mind" },
+                    { text: "A mix of physical activities and quiet time", type: "neutral" },
+                    { text: "Socializing with friends", type: "neutral" }
+                ]
+            },
+            {
+                question: "What's your idea of the perfect weekend?",
+                options: [
+                    { text: "Hiking, biking, or playing sports", type: "body" },
+                    { text: "Visiting museums, reading, or taking a class", type: "mind" },
+                    { text: "A spa day focused on relaxation", type: "mind" },
+                    { text: "An adventure that gets your heart pumping", type: "body" }
+                ]
+            },
+            {
+                question: "How do you typically deal with stress?",
+                options: [
+                    { text: "Go for a run or hit the gym", type: "body" },
+                    { text: "Meditate or practice mindfulness", type: "mind" },
+                    { text: "Talk it out with friends", type: "neutral" },
+                    { text: "Learn about the source of stress to overcome it", type: "mind" }
+                ]
+            },
+            {
+                question: "Which achievement would make you most proud?",
+                options: [
+                    { text: "Completing a marathon or fitness challenge", type: "body" },
+                    { text: "Mastering a new language or skill", type: "mind" },
+                    { text: "Improving your personal best in a sport", type: "body" },
+                    { text: "Developing a consistent meditation practice", type: "mind" }
+                ]
+            },
+            {
+                question: "What activity energizes you the most?",
+                options: [
+                    { text: "A good workout or physical activity", type: "body" },
+                    { text: "Solving puzzles or mental challenges", type: "mind" },
+                    { text: "Creating art or music", type: "mind" },
+                    { text: "Playing team sports or group fitness", type: "body" }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let selectedAnswers = [];
+        const welcomeContainer = document.getElementById('welcome-container');
+        const questionContainer = document.getElementById('question-container');
+        const resultContainer = document.getElementById('result-container');
+        const nextButton = document.getElementById('next-btn');
+        const startButton = document.getElementById('start-btn');
+        const progressBar = document.querySelector('.progress');
+        const restartBtn = document.getElementById('restart-btn');
+        const navigation = document.getElementById('navigation');
+
+        function initQuiz() {
+            currentQuestion = 0;
+            selectedAnswers = [];
+            welcomeContainer.classList.remove('hidden');
+            questionContainer.classList.add('hidden');
+            resultContainer.style.display = 'none';
+            navigation.classList.add('hidden');
+            updateProgressBar();
+        }
+
+        function startQuiz() {
+            welcomeContainer.classList.add('hidden');
+            questionContainer.classList.remove('hidden');
+            navigation.classList.remove('hidden');
+            showQuestion(currentQuestion);
+        }
+
+        function showQuestion(questionIndex) {
+            const question = questions[questionIndex];
+
+            let optionsHTML = '';
+            question.options.forEach((option, index) => {
+                optionsHTML += `
+                    <div class="option-card p-4 mb-4 rounded-lg shadow-md hover:shadow-lg" data-type="${option.type}" data-index="${index}">
+                        <div class="flex items-center">
+                            <div class="indicator w-6 h-6 rounded-full border-2 border-gray-300 mr-3 flex-shrink-0"></div>
+                            <span class="text-lg">${option.text}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            questionContainer.innerHTML = `
+                <h2 class="text-2xl font-semibold mb-6">${questionIndex + 1}. ${question.question}</h2>
+                <div class="options-container">
+                    ${optionsHTML}
+                </div>
+            `;
+
+            const optionCards = document.querySelectorAll('.option-card');
+            optionCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    optionCards.forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    selectedAnswers[currentQuestion] = card.dataset.type;
+                    nextButton.disabled = false;
+                });
+            });
+
+            nextButton.disabled = true;
+            nextButton.textContent = (currentQuestion === questions.length - 1) ? "See My Results" : "Next Question";
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestion + 1) / (questions.length + 1)) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function showResult() {
+            const counts = { body: 0, mind: 0, neutral: 0 };
+            selectedAnswers.forEach(type => counts[type]++);
+
+            let result = (counts.body > counts.mind) ? 'body' : (counts.mind > counts.body) ? 'mind' : selectedAnswers.reverse().find(type => type !== 'neutral') || 'body';
+
+            questionContainer.classList.add('hidden');
+            resultContainer.style.display = 'block';
+            navigation.classList.add('hidden');
+
+            document.getElementById('team-body-result').classList.toggle('hidden', result !== 'body');
+            document.getElementById('team-mind-result').classList.toggle('hidden', result !== 'mind');
+
+            progressBar.style.width = "100%";
+        }
+
+        startButton.addEventListener('click', () => {
+            startQuiz();
+            updateProgressBar();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion(currentQuestion);
+                updateProgressBar();
+            } else {
+                showResult();
+            }
+        });
+
+        restartBtn.addEventListener('click', initQuiz);
+        initQuiz();
+    </script>
+</body>
+</html>
